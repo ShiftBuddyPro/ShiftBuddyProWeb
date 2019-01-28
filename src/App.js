@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import SiteNavbar from "./components/utilities/SiteNavbar";
 import Landing from "./components/public/Landing";
 import Login from "./components/public/Login";
 import Dashboard from "./components/manager/Dashboard";
 import Employee from "./components/manager/Employee";
+import Employees from "./components/manager/Employees";
+import Shifts from "./components/manager/Shifts";
+import EmployeesNew from "./components/manager/EmployeesNew";
+
 import axios from "axios";
 
 class App extends Component {
@@ -22,14 +26,20 @@ class App extends Component {
       }
     })();
     return (
-      <Router>
-        <div className="app">
-          <Route path="/" exact component={Landing} />
-          <Route path="/login/" component={Login} />
-          <Route path="/dashboard/" component={Dashboard} />
-          <Route path="/employee/" component={Employee} />
-        </div>
-      </Router>
+      <div className="app">
+        <Router>
+          <div>
+            <SiteNavbar />
+            <Route path="/" exact component={Landing} />
+            <Route path="/login/" component={Login} />
+            <Route path="/dashboard/" component={Dashboard} />
+            <Route path="/employees/" component={Employees} />
+            <Route path="/shifts/" component={Shifts} />
+            <Route path="/employee/" component={Employee} />
+            <Route path="/employeesnew/" component={EmployeesNew} />
+          </div>
+        </Router>
+      </div>
     );
   }
 }

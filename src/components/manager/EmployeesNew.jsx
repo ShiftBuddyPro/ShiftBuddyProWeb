@@ -12,10 +12,17 @@ import {
   Form
 } from "reactstrap";
 
-export default class Login extends Component {
+export default class EmployeesNew extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "", errors: false };
+    this.state = {
+      name: "",
+      password: "",
+      password_confirmation: "",
+      username: "",
+      manager_id: localStorage.getItem("manager_id"),
+      errors: false
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,32 +32,22 @@ export default class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  componentWillMount() {
-    if (localStorage.getItem("auth_token")) {
-      this.props.history.push("/dashboard");
-    }
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
     axios
-      .post("/api/v1/managers/authenticate", this.state)
+      .post(
+        `/api/v1/managers/${localStorage.getItem("manager_id")}/employees`,
+        { employee: this.state }
+      )
       .then(res => {
-        this.setState({ errors: false });
-        const { auth_token } = res.data;
-        localStorage.setItem("auth_token", auth_token);
-        const { manager_id } = jwt_decode(auth_token);
-        localStorage.setItem("manager_id", manager_id);
-        this.props.history.push({ pathname: "/dashboard" });
+        this.props.history.push("/employees");
       })
       .catch(err => this.setState({ errors: true }));
   }
 
   renderErrorMessage() {
-    return (
-      <p className="small-error-text">Invalid Email/Password combination</p>
-    );
+    return <p className="small-error-text">Error</p>;
   }
 
   render() {
@@ -59,14 +56,17 @@ export default class Login extends Component {
         <Row>
           <Col md={{ size: 6, offset: 3 }}>
             <Form className="card p-1rem">
-              <h3 className="ml-auto mr-auto">Manager Login</h3>
+              <h3 className="ml-auto mr-auto">New Employee</h3>
               <FormGroup>
-                <Label for="email">Email</Label>
+                <Label for="name">Name</Label>
+                <Input onChange={this.handleChange} type="text" name="name" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="username">Username</Label>
                 <Input
                   onChange={this.handleChange}
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="text"
+                  name="username"
                 />
               </FormGroup>
               <FormGroup>
@@ -75,7 +75,14 @@ export default class Login extends Component {
                   onChange={this.handleChange}
                   type="password"
                   name="password"
-                  id="password"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password_confirmation">Password Confirmation</Label>
+                <Input
+                  onChange={this.handleChange}
+                  type="password"
+                  name="password_confirmation"
                 />
               </FormGroup>
               {this.state.errors ? this.renderErrorMessage() : ""}
@@ -83,7 +90,7 @@ export default class Login extends Component {
                 className="basic-button shadow blue"
                 onClick={this.handleSubmit}
               >
-                Enter
+                Create
               </button>
             </Form>
           </Col>

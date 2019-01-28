@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Col, Row, Container } from "reactstrap";
 
 export default class Dashboard extends Component {
   state = {
@@ -8,8 +9,7 @@ export default class Dashboard extends Component {
       email: "",
       id: ""
     },
-    employees: [],
-    shifts: [],
+    activities: [],
     manager_id: ""
   };
 
@@ -21,77 +21,31 @@ export default class Dashboard extends Component {
       .catch(err => console.log(err));
 
     axios
-      .get(`/api/v1/managers/${manager_id}/employees`)
-      .then(res => {
-        this.setState({ employees: res.data });
-      })
-      .catch(err => console.log(err));
-
-    axios
-      .get(`/api/v1/managers/${manager_id}/shifts`)
-      .then(res => {
-        this.setState({ shifts: res.data.data });
-      })
+      .get(`/api/v1/managers/${manager_id}/activity_logs`)
+      .then(res => this.setState({ activities: res.data }))
       .catch(err => console.log(err));
   }
 
-  handleEmployeeClick(id) {
-    localStorage.setItem("employee_id", id);
-    this.props.history.push("/employee");
-  }
-
-  employeesView() {
-    return this.state.employees.map(employee => {
-      return (
-        <div className="list-view-item" key={employee.id}>
-          {employee.name} {employee.id}{" "}
-          <button
-            className="float-right"
-            onClick={() => this.handleEmployeeClick(employee.id)}
-          >
-            View
-          </button>
-        </div>
-      );
-    });
-  }
-
-  handleShiftClick(id) {
-    localStorage.setItem("shift_id", id);
-    console.log("shift");
-  }
-
-  shiftsView() {
-    return this.state.shifts.map(shift => {
-      return (
-        <div className="list-view-item" key={shift.id}>
-          {shift.id}
-          <button
-            className="float-right"
-            onClick={() => {
-              this.handleShiftClick(shift.id);
-            }}
-          >
-            View
-          </button>
-        </div>
-      );
+  activityLogView() {
+    return this.state.activities.map(activity => {
+      return <div key={activity} className="card p-1rem">{activity}</div>;
     });
   }
 
   render() {
     return (
-      <div>
-        <h1>Welcome {this.state.name}</h1>
-        <div className="card">
-          <h1>Employees</h1>
-          {this.employeesView()}
-        </div>
-        <div className="card">
-          <h1>Shifts</h1>
-          {this.shiftsView()}
-        </div>
-      </div>
+      <Container>
+        <h1 className="text-center mb-1rem">Activity Log </h1>
+        <Row>
+          <Col md={{ size: 8, offset: 2 }}>
+            {this.state.activities.length > 0 ? (
+              this.activityLogView()
+            ) : (
+              <div className="text-center">There are no recent activities</div>
+            )}
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

@@ -1,15 +1,25 @@
 html {
-  margin: 2rem;
   line-height: 1.5rem;
   background-color: rgba(192, 191, 191, 0.171);
 }
 
-.app {
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  background-color: rgba(192, 191, 191, 0.171);
 }
 
+.app {
+  background-color: rgba(192, 191, 191, 0.171);
+}
+
+html a {
+  text-decoration: none;
+  color: white;
+}
+
+html a:hover {
+  text-decoration: none;
+  color: white;
+}
 .card {
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -29,11 +39,12 @@ html {
 }
 
 .list-view-item {
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border-radius: 4px;
+  color: rgb(211, 120, 9);
+  font-weight: bold;
   margin: 1rem;
   padding: 0.5rem;
-  background-color: rgb(245, 195, 101);
+  background-color: rgb(243, 210, 161);
 }
 
 .ml-auto {
@@ -44,6 +55,99 @@ html {
   margin-right: auto;
 }
 
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .float-right {
   float: right;
+}
+
+.mb-1rem {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mt-half {
+  margin-top: 0.5rem;
+}
+
+.mt-6 {
+  margin-top: 6rem;
+}
+
+.p-1rem {
+  padding: 1rem;
+}
+
+.small-error-text {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: red;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.basic-button {
+  border-radius: 4px;
+  background-color: #b1b1b1;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.25rem 1rem;
+  color: white;
+}
+.basic-button:hover {
+  cursor: pointer;
+}
+.basic-button.shadow {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
+}
+.basic-button.shadow:hover {
+  transition: 0.9s;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.26);
+}
+.basic-button.blue {
+  background-color: #5ec6c9 !important;
+}
+.basic-button.blue:hover {
+  background-color: #9edce0 !important;
+}
+.basic-button.red {
+  background-color: rgba(231, 41, 41, 0.878);
+}
+.basic-button.red:hover {
+  background-color: #fa7b7b;
+}
+.basic-button.orange {
+  background-color: #fc9b40;
+}
+.basic-button.orange:hover {
+  background-color: #ffc58f;
+}
+
+.plus-button {
+  background-color: orange;
+  padding: 0.2rem 1rem !important;
+  font-size: 1.5rem !important;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
+  margin-left: .5rem;
+}
+
+.plus-button:hover {
+  background-color: #ffc58f;
+  transition: 0.9s;
+  cursor: pointer;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.26);
 }
